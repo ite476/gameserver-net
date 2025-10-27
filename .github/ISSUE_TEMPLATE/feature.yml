@@ -1,0 +1,29 @@
+name: "Feature"
+description: "사용자/도메인 관점의 기능 요청"
+labels: ["type:feature", "prio:normal"]
+body:
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      placeholder: "누가/언제/어떤 시나리오에서 필요한가?"
+  - type: textarea
+    id: spec
+    attributes:
+      label: Spec
+      placeholder: |
+        - Endpoint: POST /api/fps/players
+        - Request: { id: string }
+        - Response: 200 OK
+  - type: textarea
+    id: ac
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] p95 응답시간 200ms 이하(로컬)
+        - [ ] 실패 케이스 에러 코드 정의
+  - type: textarea
+    id: non_goals
+    attributes:
+      label: Non-goals
+      placeholder: 이번 이슈 범위 밖 항목

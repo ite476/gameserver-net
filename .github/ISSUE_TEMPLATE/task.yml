@@ -1,0 +1,32 @@
+name: "Task"
+description: "작업/기능/버그 포함 단일 작업 티켓"
+labels: ["prio:normal"]
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: 무엇을, 왜 해야 하는가?
+      placeholder: "예) FPS - Player Upsert API 추가"
+  - type: textarea
+    id: ac
+    attributes:
+      label: Acceptance Criteria
+      description: 체크리스트 형태의 수용 기준
+      placeholder: |
+        - [ ] POST /api/fps/players 200 반환
+        - [ ] 존재시 upsert, 신규시 create
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps
+      description: 구현/검증 단계
+      placeholder: |
+        - [ ] 컨트롤러/유스케이스 추가
+        - [ ] 단위/통합 테스트
+        - [ ] README 업데이트
+  - type: textarea
+    id: links
+    attributes:
+      label: Links
+      placeholder: "관련 이슈/PR #123, 문서 링크 등"
