@@ -1,0 +1,21 @@
+name: "ADR / Design"
+description: "Architecture Decision Record"
+labels: ["type:design", "adr"]
+body:
+  - type: textarea
+    id: title
+    attributes:
+      label: Title
+      placeholder: "API/App/Domain/Infra 경계 확정"
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision
+  - type: textarea
+    id: consequences
+    attributes:
+      label: Consequences

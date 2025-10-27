@@ -1,0 +1,20 @@
+name: "Tech Debt"
+description: "리팩터링/부채 상환"
+labels: ["type:techdebt", "prio:low"]
+body:
+  - type: textarea
+    id: area
+    attributes:
+      label: Area
+      placeholder: "예) FpsServer.Infra.Repositories"
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+  - type: textarea
+    id: plan
+    attributes:
+      label: Plan
+      placeholder: |
+        - [ ] 인터페이스 추출
+        - [ ] 테스트 커버리지 80%

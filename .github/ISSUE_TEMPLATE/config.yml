@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Q&A / Discussions
+    url: https://github.com/ite476/gameserver-net/discussions
+    about: 질문/아이디어/제안은 토론 페이지를 활용해주세요.
+  - name: Security / 보안 이슈 제보
+    url: https://github.com/ite476/gameserver-net/security/policy
+    about: 보안 취약점은 공개 이슈 대신 이메일로 비공개 제보를 부탁드립니다.

@@ -1,0 +1,23 @@
+name: "Bug"
+description: "버그 리포트"
+labels: ["type:bug", "prio:high"]
+body:
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual
+  - type: textarea
+    id: repro
+    attributes:
+      label: Repro Steps
+      placeholder: |
+        1) ...
+        2) ...
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Screenshots
