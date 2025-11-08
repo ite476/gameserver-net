@@ -22,6 +22,17 @@ MMR 시스템은 게임 밸런스를 유지하는 핵심 요소이며, 공정한
 - 팀 매칭: 팀 평균 MMR 기반 계산
 - 이유: 업계 표준, 검증된 알고리즘, 구현 단순성
 
+**구조 설계: 확장 가능한 인터페이스 기반**
+- `IMMRCalculator` 인터페이스로 설계 (확장 가능)
+- MVP에서는 `EloRatingCalculator` 단일 구현체만 제공
+- 향후 다른 알고리즘(Glicko, TrueSkill 등) 필요 시 추가 구현체 도입
+- 이유: MMR은 핵심 비즈니스 로직이므로 알고리즘 변경 가능성 고려 필요
+
+**문서화 및 주석:**
+- 알고리즘 설명 문서는 Feature PR 단계에서 작성 (이슈 #24)
+- 코드 내 주석에 공식 및 근거 자료 링크 포함
+- 이유: 구현 시점에 상세 설명이 더 명확하고, 코드와 문서의 동기화 용이
+
 ### 2. 매치 세션 상태 관리: DB 기반 (EF Core)
 - `MatchSession` 엔티티로 영속화
 - 상태 전이: `Matched → Starting → InProgress → Finished`
@@ -40,8 +51,10 @@ MMR 시스템은 게임 밸런스를 유지하는 핵심 요소이며, 공정한
   - MatchId, PlayerResults, Winner, EndedAt
 - `PlayerResult` (값 객체, `record`)
   - PlayerId, IsWinner, Score (게임별 통계)
-- `MMRCalculator` (Domain Service)
+- `IMMRCalculator` (Domain Service 인터페이스)
   - `CalculateNewMMR()` 메서드
+- `EloRatingCalculator` (Domain Service 구현체)
+  - Elo 레이팅 알고리즘 구현
 - `PlayerMMR` (엔티티)
   - PlayerId, CurrentMMR, UpdatedAt
 
