@@ -45,8 +45,17 @@ SignalR 기반으로 WebSocket 연결을 활용하며, 채팅방/채널 관리, 
 
 ### 6. 메시지 전송 흐름
 ```
-클라이언트 → Hub.SendMessage() → SendMessageUseCase → Domain 검증 → Repository 저장 → Notifier → Hub 그룹 브로드캐스트
+클라이언트 → Hub.SendMessage() → SendMessageUseCase → Domain 검증 → Repository 저장 → Hub 그룹 브로드캐스트
 ```
+
+### 7. 추상화 원칙: MVP 단계에서 불필요한 추상화 최소화
+- **원칙**: MVP 단계에서는 실제 필요성이 명확해질 때까지 추상화를 최소화
+- **적용**: 
+  - UseCase에서 Hub를 직접 호출 (Notifier 추상화 제외)
+  - 이유: MVP에서는 SignalR Hub가 유일한 알림 채널이며, 다른 채널(이메일, SMS 등) 필요성 불명확
+  - 확장 시점: 다른 알림 채널이 실제로 필요해질 때 Notifier 추상화 도입
+- **장점**: 개발 속도 향상, 복잡도 감소, 명확한 의존성
+- **단점**: 향후 다른 알림 채널 추가 시 리팩토링 필요 (하지만 실제 필요 시점에 도입하는 것이 더 효율적)
 
 ## Consequences
 
@@ -61,6 +70,7 @@ SignalR 기반으로 WebSocket 연결을 활용하며, 채팅방/채널 관리, 
 - 메모리 기반은 서버 재시작 시 메시지 손실 (확장 단계에서 DB 전환 필요)
 - 메시지 영속성은 MVP 단계에서 제한적 (최근 N개만 유지)
 - SignalR 연결 수에 따른 서버 리소스 사용 증가
+- MVP 단계에서 추상화 최소화로 인한 향후 리팩토링 가능성 (실제 필요 시점에 도입하는 것이 더 효율적)
 
 ## 참고
 - 아키텍처: [docs/ARCHITECTURE.md](../ARCHITECTURE.md)
