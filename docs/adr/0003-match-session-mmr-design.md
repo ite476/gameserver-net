@@ -33,6 +33,10 @@ MMR 시스템은 게임 밸런스를 유지하는 핵심 요소이며, 공정한
 - 코드 내 주석에 공식 및 근거 자료 링크 포함
 - 이유: 구현 시점에 상세 설명이 더 명확하고, 코드와 문서의 동기화 용이
 
+**참고 자료:**
+- [엘로 평점 시스템 (위키백과)](https://ko.wikipedia.org/wiki/엘로_평점_시스템)
+- [Elo 레이팅 (나무위키)](https://namu.wiki/w/Elo%20레이팅)
+
 ### 2. 매치 세션 상태 관리: DB 기반 (EF Core)
 - `MatchSession` 엔티티로 영속화
 - 상태 전이: `Matched → Starting → InProgress → Finished`
