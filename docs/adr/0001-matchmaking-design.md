@@ -29,7 +29,9 @@ Accepted
 - `MatchmakingQueue` (Aggregate Root) - 큐 상태 관리
 - `Match` (엔티티) - 매칭 결과
 - `PlayerMatchRequest` (엔티티) - 플레이어 요청
-- `MMR` (값 객체, record struct) - 레이팅 값
+- `MMR` (값 객체, `readonly record struct`) - 레이팅 값
+  - EF Core 8 복합 형식(Complex Type)으로 지원
+  - 불변성 보장을 위해 `readonly` 키워드 필수
 - `MatchmakingDomainService` - 매칭 로직 (MMR 기반)
 
 ### 4. 알림 방식: SignalR Hub 기반
@@ -54,6 +56,11 @@ Accepted
 ### 단점/제약
 - 메모리 기반은 서버 재시작 시 큐 손실 (확장 단계에서 Redis로 전환 필요)
 - 백그라운드 서비스는 주기적 스캔으로 약간의 지연 가능 (1초 이내)
+- `record struct` 사용 시 기술적 제약:
+  - EF Core 8 이상 필요 (복합 형식 지원)
+  - `readonly record struct` 사용 필수 (불변성 보장)
+  - null 허용 시 `MMR?` 형식 사용 필요
+  - 복합 형식은 소유 엔터티와 함께 저장되므로 별도 테이블 생성 안 됨
 
 ## 참고
 - 아키텍처: [docs/ARCHITECTURE.md](../ARCHITECTURE.md)
