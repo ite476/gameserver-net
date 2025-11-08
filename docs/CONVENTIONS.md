@@ -48,19 +48,12 @@
 
   * scope = 선택 (예: `FPS`, `GunItemAdapter`)
   * 제목: 50자 내외, 마침표 X, 한국어 명사/명령형 모두 허용
-  * **fix 제목**: "~현상/문제"만으로 충분 (해결/수정 단어 생략 OK)
-* PR 제목 규칙:
+  * **fix 제목**: “~현상/문제”만으로 충분 (해결/수정 단어 생략 OK)
+* PR 제목 규칙 (배포 관련):
 
-  * 일반 PR: `<commit-type>(<optional-interest>): <summary>`
-    * `commit-type`: 커밋 타입 (`feat`, `fix`, `refactor`, `docs`, `test`, `chore`, `perf` 등)
-    * `interest`: 선택, 영향 영역 또는 컴포넌트 (예: `project`, `FPS`, `Platform`)
-    * `summary`: 변경 요약 (50자 내외, 마침표 X)
-    * 이슈 번호는 PR 본문의 "참고" 섹션에서 처리 (제목에 포함 시 Squash merge 시 중첩 문제)
-    * 예시: `chore(project): 프로젝트 기초 구조 세팅`, `feat(FPS): 레일 건 추가`
-  * 배포 관련 PR:
-    * Release: `release(x.y.z): 정규 업데이트`
-    * Hotfix: `hotfix(x.y.z-YYYY-MM-DD-N): <한 줄 요약>`
-    * Master 병합(필요시): `merge(master): <한 줄 요약>`
+  * Release: `release(x.y.z): 정규 업데이트`
+  * Hotfix: `hotfix(x.y.z-YYYY-MM-DD-N): <한 줄 요약>`
+  * Master 병합(필요시): `merge(master): <한 줄 요약>`
 * PR 템플릿: [default](../.github/PULL_REQUEST_TEMPLATE/DEFAULT.md) · [release](../.github/PULL_REQUEST_TEMPLATE/RELEASE.md) · [hotfix](../.github/PULL_REQUEST_TEMPLATE/HOTFIX.md)
 
 ---
