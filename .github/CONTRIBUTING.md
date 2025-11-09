@@ -17,7 +17,7 @@
   * 한 줄 요약은 50자 내외, 끝에 마침표 X, 한국어는 **명사형/명령형** 모두 허용.
   * **fix 요약**은 “~현상/문제” 식으로 충분(“해결/수정” 단어 생략 OK). 상세 원인/조치/영향 범위는 **본문**에 기술.
   * 관련 이슈 링크: 본문에 `Resolves #<이슈>` 또는 `#<이슈>` 명시.
-* **PR 제목**: (일반 PR) 커밋 요약을 반영(필요 시 scope 포함), 본문에 `Resolves #<이슈>` 포함. **배포 관련 PR(`release/*`, `hotfix/*`, `master` 병합)**은 다음 형식 사용: `release(x.y.z): cut release x.y.z` / `hotfix(x.y.z-YYYY-MM-DD-N): <요약>` / `merge(master): <요약>` — 상세 체크리스트/본문 템플릿은 [docs/RELEASE.md](../docs/RELEASE.md) 참조.
+* **PR 제목**: (일반 PR) `<commit-type>(<optional-interest>): <summary>` 형식 사용. `commit-type`은 커밋 타입, `interest`는 선택적 영향 영역/컴포넌트, `summary`는 변경 요약(50자 내외). 이슈 번호는 본문의 "참고" 섹션에서 처리(제목 포함 시 Squash merge 시 중첩 문제). 예) `chore(project): 프로젝트 기초 구조 세팅`, `feat(FPS): 레일 건 추가`. 본문에 `Resolves #<이슈>` 또는 `related to: #<이슈>` 포함. **배포 관련 PR(`release/*`, `hotfix/*`, `master` 병합)**은 다음 형식 사용: `release(x.y.z): cut release x.y.z` / `hotfix(x.y.z-YYYY-MM-DD-N): <요약>` / `merge(master): <요약>` — 상세 체크리스트/본문 템플릿은 [docs/RELEASE.md](../docs/RELEASE.md) 참조.
 * **체크리스트**: 빌드/테스트 통과, AC 충족, 문서 업데이트
 
 ## 라벨 (원칙)
