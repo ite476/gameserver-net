@@ -42,6 +42,26 @@ FPS 게임 서버에서 플레이어를 공정하게 매칭하여 게임 세션�
 
 ## 2. 유스케이스
 
+### 2.0 전체 시스템 흐름 개요
+
+```mermaid
+graph TB
+    Player[플레이어] -->|1. 큐 진입| API[MatchmakingController]
+    API -->|2. UseCase 호출| App[Application Layer]
+    App -->|3. 도메인 로직| Domain[Domain Layer]
+    Domain -->|4. 큐 저장| Repo[Infrastructure]
+    
+    BG[BackgroundService<br/>1초 주기] -->|5. 큐 스캔| Repo
+    BG -->|6. 매칭 시도| Domain
+    Domain -->|7. 매칭 성공| Match[Match 생성]
+    Match -->|8. 알림 전송| Notifier[SignalR Notifier]
+    Notifier -->|9. 실시간 알림| Player
+    
+    Player -->|10. 큐 취소| API
+    API -->|11. UseCase 호출| App
+    App -->|12. 큐에서 제거| Repo
+```
+
 ### 2.1 큐 진입 (Join Matchmaking Queue)
 
 **액터:** 플레이어 (클라이언트)
@@ -64,6 +84,34 @@ FPS 게임 서버에서 플레이어를 공정하게 매칭하여 게임 세션�
 **사후조건:**
 - 플레이어가 해당 게임 모드 큐에 등록됨
 - 백그라운드 서비스가 주기적으로 매칭 시도 시작
+
+**시퀀스 다이어그램:**
+
+```mermaid
+sequenceDiagram
+    participant Player as 플레이어
+    participant API as MatchmakingController
+    participant App as JoinMatchmakingUseCase
+    participant Domain as MatchmakingQueue
+    participant Repo as IMatchmakingRepository
+
+    Player->>API: POST /api/fps/matchmaking/join<br/>(PlayerId, GameMode, MMR)
+    API->>App: ExecuteAsync(request)
+    App->>Repo: GetQueueAsync(GameMode)
+    Repo-->>App: MatchmakingQueue
+    App->>Domain: Enqueue(PlayerMatchRequest)
+    alt 플레이어가 이미 큐에 있음
+        Domain-->>App: PlayerAlreadyInQueueException
+        App-->>API: Exception
+        API-->>Player: 409 Conflict
+    else 정상 처리
+        Domain->>Domain: 플레이어 추가
+        App->>Repo: EnqueueAsync(request)
+        Repo-->>App: Success
+        App-->>API: JoinMatchmakingResponse
+        API-->>Player: 200 OK (RequestId, Status)
+    end
+```
 
 ---
 
@@ -89,6 +137,42 @@ FPS 게임 서버에서 플레이어를 공정하게 매칭하여 게임 세션�
 - 매칭된 플레이어들이 큐에서 제거됨
 - 매칭 정보가 모든 관련 플레이어에게 전달됨
 
+**시퀀스 다이어그램:**
+
+```mermaid
+sequenceDiagram
+    participant BG as BackgroundService
+    participant Repo as IMatchmakingRepository
+    participant Domain as MatchmakingDomainService
+    participant Queue as MatchmakingQueue
+    participant Notifier as IMatchmakingNotifier
+    participant Hub as SignalR Hub
+    participant Player1 as 플레이어 1
+    participant Player2 as 플레이어 2
+
+    loop 1초마다 주기적 스캔
+        BG->>Repo: GetQueueAsync(GameMode)
+        Repo-->>BG: MatchmakingQueue
+        BG->>Domain: TryMatch(Queue)
+        Domain->>Queue: 큐에서 플레이어 조회
+        Queue-->>Domain: PlayerMatchRequest 목록
+        Domain->>Domain: MMR 기반 매칭 로직<br/>(±100 범위 내)
+        alt 매칭 성공
+            Domain->>Domain: Match 엔티티 생성
+            Domain->>Queue: 매칭된 플레이어 제거
+            Domain-->>BG: Match
+            BG->>Repo: SaveMatchAsync(Match)
+            BG->>Notifier: NotifyMatchFoundAsync(Match)
+            Notifier->>Hub: SendAsync("MatchFound", response)
+            Hub->>Player1: MatchFound 이벤트
+            Hub->>Player2: MatchFound 이벤트
+        else 매칭 실패
+            Domain-->>BG: null
+            Note over BG: 다음 스캔 주기까지 대기
+        end
+    end
+```
+
 ---
 
 ### 2.3 큐 취소 (Cancel Matchmaking)
@@ -110,6 +194,36 @@ FPS 게임 서버에서 플레이어를 공정하게 매칭하여 게임 세션�
 **사후조건:**
 - 플레이어가 큐에서 제거됨
 - 백그라운드 서비스가 해당 플레이어를 매칭 대상에서 제외
+
+**시퀀스 다이어그램:**
+
+```mermaid
+sequenceDiagram
+    participant Player as 플레이어
+    participant API as MatchmakingController
+    participant App as CancelMatchmakingUseCase
+    participant Repo as IMatchmakingRepository
+    participant Domain as MatchmakingQueue
+
+    Player->>API: DELETE /api/fps/matchmaking/cancel<br/>?playerId={guid}
+    API->>App: ExecuteAsync(playerId)
+    App->>Repo: FindByPlayerIdAsync(playerId)
+    alt 플레이어가 큐에 없음
+        Repo-->>App: null
+        App-->>API: PlayerNotInQueueException
+        API-->>Player: 404 Not Found
+    else 정상 처리
+        Repo-->>App: PlayerMatchRequest
+        App->>Repo: GetQueueAsync(GameMode)
+        Repo-->>App: MatchmakingQueue
+        App->>Domain: Cancel(playerId)
+        Domain->>Domain: 플레이어 제거
+        App->>Repo: CancelAsync(playerId)
+        Repo-->>App: Success
+        App-->>API: Success
+        API-->>Player: 204 No Content
+    end
+```
 
 ---
 
@@ -136,6 +250,28 @@ FPS 게임 서버에서 플레이어를 공정하게 매칭하여 게임 세션�
 - 매칭은 플레이어의 MMR 값을 기반으로 수행되어야 함
 - MMR 차이가 허용 범위(±100) 내에 있는 플레이어들을 우선 매칭해야 함
 - 매칭은 큐 진입 시간(선입선출)을 고려해야 함
+
+**매칭 알고리즘 흐름:**
+
+```mermaid
+flowchart TD
+    Start[큐 스캔 시작] --> GetQueue[게임 모드별 큐 조회]
+    GetQueue --> SortByTime[큐 진입 시간순 정렬<br/>선입선출]
+    SortByTime --> SelectFirst[첫 번째 플레이어 선택<br/>기준 MMR]
+    SelectFirst --> CheckMMR{다음 플레이어의<br/>MMR 차이 ≤ 100?}
+    CheckMMR -->|Yes| AddToMatch[매칭 그룹에 추가]
+    CheckMMR -->|No| NextPlayer[다음 플레이어 확인]
+    AddToMatch --> CheckCount{매칭 인원<br/>충족?<br/>Solo: 2명}
+    CheckCount -->|Yes| CreateMatch[Match 엔티티 생성]
+    CheckCount -->|No| NextPlayer
+    NextPlayer --> CheckEnd{더 이상<br/>플레이어 없음?}
+    CheckEnd -->|Yes| NoMatch[매칭 실패<br/>다음 스캔 대기]
+    CheckEnd -->|No| CheckMMR
+    CreateMatch --> RemoveFromQueue[매칭된 플레이어<br/>큐에서 제거]
+    RemoveFromQueue --> Notify[SignalR 알림 전송]
+    Notify --> End[매칭 완료]
+    NoMatch --> End
+```
 
 **FR-005: 게임 모드별 매칭**
 - Solo 모드: 2명 매칭
