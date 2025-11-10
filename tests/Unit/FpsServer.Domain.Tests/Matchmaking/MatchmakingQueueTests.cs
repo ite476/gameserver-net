@@ -5,10 +5,12 @@ using Xunit;
 
 namespace FpsServer.Domain.Tests.Matchmaking;
 
+[Trait("Feature", "매치메이킹")]
 public class MatchmakingQueueTests
 {
     [Fact]
-    public void Constructor_WithGameMode_ShouldCreateQueue()
+    [Trait("Category", "매치메이킹 큐")]
+    public void 게임_모드가_주어지면_큐를_생성해야_한다()
     {
         // Arrange & Act
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
@@ -20,7 +22,8 @@ public class MatchmakingQueueTests
     }
     
     [Fact]
-    public void Enqueue_WithValidRequest_ShouldAddToQueue()
+    [Trait("Category", "매치메이킹 큐")]
+    public void 유효한_요청이면_큐에_추가해야_한다()
     {
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
@@ -36,7 +39,8 @@ public class MatchmakingQueueTests
     }
     
     [Fact]
-    public void Enqueue_WithNullRequest_ShouldThrowArgumentNullException()
+    [Trait("Category", "매치메이킹 큐")]
+    public void null_요청이면_ArgumentNullException을_발생시켜야_한다()
     {
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
@@ -50,7 +54,8 @@ public class MatchmakingQueueTests
     }
     
     [Fact]
-    public void Enqueue_WithDuplicatePlayer_ShouldThrowPlayerAlreadyInQueueException()
+    [Trait("Category", "매치메이킹 큐")]
+    public void 중복_플레이어가_있으면_PlayerAlreadyInQueueException을_발생시켜야_한다()
     {
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
@@ -69,7 +74,8 @@ public class MatchmakingQueueTests
     }
     
     [Fact]
-    public void Enqueue_WithMismatchedGameMode_ShouldThrowInvalidMatchmakingRequestException()
+    [Trait("Category", "매치메이킹 큐")]
+    public void 게임_모드가_불일치하면_InvalidMatchmakingRequestException을_발생시켜야_한다()
     {
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
@@ -84,7 +90,8 @@ public class MatchmakingQueueTests
     }
     
     [Fact]
-    public void Cancel_WithExistingPlayer_ShouldRemoveFromQueue()
+    [Trait("Category", "매치메이킹 큐")]
+    public void 존재하는_플레이어를_취소하면_큐에서_제거해야_한다()
     {
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
@@ -100,7 +107,8 @@ public class MatchmakingQueueTests
     }
     
     [Fact]
-    public void Cancel_WithNonExistentPlayer_ShouldThrowPlayerNotInQueueException()
+    [Trait("Category", "매치메이킹 큐")]
+    public void 존재하지_않는_플레이어를_취소하면_PlayerNotInQueueException을_발생시켜야_한다()
     {
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
@@ -115,7 +123,8 @@ public class MatchmakingQueueTests
     }
     
     [Fact]
-    public void FindByPlayerId_WithExistingPlayer_ShouldReturnRequest()
+    [Trait("Category", "매치메이킹 큐")]
+    public void 존재하는_플레이어_ID로_찾으면_요청을_반환해야_한다()
     {
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
@@ -132,7 +141,8 @@ public class MatchmakingQueueTests
     }
     
     [Fact]
-    public void FindByPlayerId_WithNonExistentPlayer_ShouldReturnNull()
+    [Trait("Category", "매치메이킹 큐")]
+    public void 존재하지_않는_플레이어_ID로_찾으면_null을_반환해야_한다()
     {
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
@@ -146,7 +156,8 @@ public class MatchmakingQueueTests
     }
     
     [Fact]
-    public void Enqueue_MultiplePlayers_ShouldMaintainOrder()
+    [Trait("Category", "매치메이킹 큐")]
+    public void 여러_플레이어를_추가하면_순서를_유지해야_한다()
     {
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);

@@ -4,10 +4,12 @@ using Xunit;
 
 namespace FpsServer.Domain.Tests.Matchmaking;
 
+[Trait("Feature", "매치메이킹")]
 public class MatchmakingDomainServiceTests
 {
     [Fact]
-    public void TryMatch_WithNullQueue_ShouldThrowArgumentNullException()
+    [Trait("Category", "매칭 도메인 서비스")]
+    public void null_큐면_ArgumentNullException을_발생시켜야_한다()
     {
         // Arrange
         var service = new MatchmakingDomainService();
@@ -21,7 +23,8 @@ public class MatchmakingDomainServiceTests
     }
     
     [Fact]
-    public void TryMatch_WithEmptyQueue_ShouldReturnNull()
+    [Trait("Category", "매칭 도메인 서비스")]
+    public void 빈_큐면_null을_반환해야_한다()
     {
         // Arrange
         var service = new MatchmakingDomainService();
@@ -35,7 +38,8 @@ public class MatchmakingDomainServiceTests
     }
     
     [Fact]
-    public void TryMatch_WithSinglePlayer_ShouldReturnNull()
+    [Trait("Category", "매칭 도메인 서비스")]
+    public void 플레이어가_1명이면_null을_반환해야_한다()
     {
         // Arrange
         var service = new MatchmakingDomainService();
@@ -52,7 +56,8 @@ public class MatchmakingDomainServiceTests
     }
     
     [Fact]
-    public void TryMatch_WithTwoPlayersWithinMMRTolerance_ShouldCreateMatch()
+    [Trait("Category", "매칭 도메인 서비스")]
+    public void MMR_허용_범위_내_두_플레이어면_매칭을_생성해야_한다()
     {
         // Arrange
         var service = new MatchmakingDomainService();
@@ -75,7 +80,8 @@ public class MatchmakingDomainServiceTests
     }
     
     [Fact]
-    public void TryMatch_WithTwoPlayersOutsideMMRTolerance_ShouldReturnNull()
+    [Trait("Category", "매칭 도메인 서비스")]
+    public void MMR_허용_범위_밖_두_플레이어면_null을_반환해야_한다()
     {
         // Arrange
         var service = new MatchmakingDomainService();
@@ -94,7 +100,8 @@ public class MatchmakingDomainServiceTests
     }
     
     [Fact]
-    public void TryMatch_WithThreePlayers_FirstTwoWithinTolerance_ShouldMatchFirstTwo()
+    [Trait("Category", "매칭 도메인 서비스")]
+    public void 세_플레이어_중_처음_두_명이_허용_범위_내면_처음_두_명을_매칭해야_한다()
     {
         // Arrange
         var service = new MatchmakingDomainService();
@@ -120,7 +127,8 @@ public class MatchmakingDomainServiceTests
     }
     
     [Fact]
-    public void TryMatch_WithExactMMRTolerance_ShouldMatch()
+    [Trait("Category", "매칭 도메인 서비스")]
+    public void 정확히_MMR_허용_범위_경계면_매칭해야_한다()
     {
         // Arrange
         var service = new MatchmakingDomainService();
@@ -139,7 +147,8 @@ public class MatchmakingDomainServiceTests
     }
     
     [Fact]
-    public void TryMatch_ShouldRespectEnqueueOrder()
+    [Trait("Category", "매칭 도메인 서비스")]
+    public void 큐_진입_순서를_준수해야_한다()
     {
         // Arrange
         var service = new MatchmakingDomainService();
@@ -166,7 +175,8 @@ public class MatchmakingDomainServiceTests
     }
     
     [Fact]
-    public void TryMatch_WithMultipleValidPairs_ShouldMatchFirstPair()
+    [Trait("Category", "매칭 도메인 서비스")]
+    public void 여러_유효한_쌍이_있으면_첫_번째_쌍을_매칭해야_한다()
     {
         // Arrange
         var service = new MatchmakingDomainService();

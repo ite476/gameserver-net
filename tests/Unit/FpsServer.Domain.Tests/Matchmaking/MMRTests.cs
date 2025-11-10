@@ -4,10 +4,12 @@ using Xunit;
 
 namespace FpsServer.Domain.Tests.Matchmaking;
 
+[Trait("Feature", "매치메이킹")]
 public class MMRTests
 {
     [Fact]
-    public void Constructor_WithValidValue_ShouldCreateMMR()
+    [Trait("Category", "MMR 값 객체")]
+    public void 유효한_값이면_MMR을_생성해야_한다()
     {
         // Arrange & Act
         var mmr = new MMR(1500);
@@ -17,7 +19,8 @@ public class MMRTests
     }
     
     [Fact]
-    public void Constructor_WithNegativeValue_ShouldThrowArgumentException()
+    [Trait("Category", "MMR 값 객체")]
+    public void 음수_값이면_ArgumentException을_발생시켜야_한다()
     {
         // Arrange & Act
         var act = () => new MMR(-1);
@@ -29,7 +32,8 @@ public class MMRTests
     }
     
     [Fact]
-    public void Constructor_WithZero_ShouldCreateMMR()
+    [Trait("Category", "MMR 값 객체")]
+    public void 영_값이면_MMR을_생성해야_한다()
     {
         // Arrange & Act
         var mmr = new MMR(0);
@@ -39,7 +43,8 @@ public class MMRTests
     }
     
     [Fact]
-    public void OperatorPlus_ShouldAddDelta()
+    [Trait("Category", "MMR 값 객체")]
+    public void 델타를_더하면_MMR이_증가해야_한다()
     {
         // Arrange
         var mmr = new MMR(1500);
@@ -52,7 +57,8 @@ public class MMRTests
     }
     
     [Fact]
-    public void OperatorMinus_ShouldSubtractDelta()
+    [Trait("Category", "MMR 값 객체")]
+    public void 델타를_빼면_MMR이_감소해야_한다()
     {
         // Arrange
         var mmr = new MMR(1500);
@@ -65,7 +71,8 @@ public class MMRTests
     }
     
     [Fact]
-    public void OperatorMinus_TwoMMRs_ShouldReturnDifference()
+    [Trait("Category", "MMR 값 객체")]
+    public void 두_MMR의_차이를_계산하면_정수값을_반환해야_한다()
     {
         // Arrange
         var mmr1 = new MMR(1500);
@@ -79,7 +86,8 @@ public class MMRTests
     }
     
     [Fact]
-    public void AbsoluteDifference_ShouldReturnAbsoluteValue()
+    [Trait("Category", "MMR 값 객체")]
+    public void 두_MMR의_절대_차이를_계산하면_양수값을_반환해야_한다()
     {
         // Arrange
         var mmr1 = new MMR(1500);
@@ -93,7 +101,8 @@ public class MMRTests
     }
     
     [Fact]
-    public void AbsoluteDifference_WithReversedOrder_ShouldReturnSameValue()
+    [Trait("Category", "MMR 값 객체")]
+    public void 순서가_바뀌어도_절대_차이는_동일해야_한다()
     {
         // Arrange
         var mmr1 = new MMR(1500);
