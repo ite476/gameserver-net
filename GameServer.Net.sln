@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35527.113 d17.12
+VisualStudioVersion = 17.12.35527.113
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{E9F86042-816D-40B7-8B8F-CE27CD442C2B}"
 EndProject
@@ -19,7 +19,25 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Unit", "Unit", "{521060E1-5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration", "{7E5B5D17-E65B-4566-8553-62E9FFAF36B4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FpsServer.Domain", "src\Services\FpsServer\FpsServer.Domain\FpsServer.Domain.csproj", "{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FpsServer.Domain.Tests", "tests\Unit\FpsServer.Domain.Tests\FpsServer.Domain.Tests.csproj", "{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
@@ -30,5 +48,7 @@ Global
 		{77818160-FC1E-4CCB-AA27-4B7E0D918BC9} = {3A87E552-E1E4-4B58-8BD1-F91BABDCB911}
 		{521060E1-5A41-4490-A7B0-75291847BDBB} = {B26AC501-85E1-41C9-84FB-E9E9B2E5E7C0}
 		{7E5B5D17-E65B-4566-8553-62E9FFAF36B4} = {B26AC501-85E1-41C9-84FB-E9E9B2E5E7C0}
+		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64} = {D364F51C-08AA-44A2-940B-A7C700942234}
+		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD} = {521060E1-5A41-4490-A7B0-75291847BDBB}
 	EndGlobalSection
 EndGlobal
