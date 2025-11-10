@@ -26,37 +26,17 @@ EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
-		Debug|x64 = Debug|x64
-		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
-		Release|x64 = Release|x64
-		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Debug|x64.Build.0 = Debug|Any CPU
-		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Debug|x86.Build.0 = Debug|Any CPU
 		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Release|Any CPU.Build.0 = Release|Any CPU
-		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Release|x64.ActiveCfg = Release|Any CPU
-		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Release|x64.Build.0 = Release|Any CPU
-		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Release|x86.ActiveCfg = Release|Any CPU
-		{2CC49AF4-BF29-42F8-AE4B-1E39F1C3BA64}.Release|x86.Build.0 = Release|Any CPU
 		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Debug|x64.Build.0 = Debug|Any CPU
-		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Debug|x86.Build.0 = Debug|Any CPU
 		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Release|x64.ActiveCfg = Release|Any CPU
-		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Release|x64.Build.0 = Release|Any CPU
-		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Release|x86.ActiveCfg = Release|Any CPU
-		{F213690B-C2ED-4E3B-90B8-7F8B8FEF94DD}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
