@@ -28,7 +28,7 @@ public class PlayerMatchRequest
     /// <summary>
     /// 큐 진입 시간
     /// </summary>
-    public DateTime EnqueuedAt { get; private set; }
+    public DateTimeOffset EnqueuedAt { get; private set; }
     
     // EF Core용 private 생성자
     private PlayerMatchRequest() { }
@@ -45,7 +45,7 @@ public class PlayerMatchRequest
         PlayerId = playerId;
         GameMode = gameMode;
         PlayerMMR = playerMMR;
-        EnqueuedAt = DateTime.UtcNow;
+        EnqueuedAt = DateTimeOffset.UtcNow;
     }
 }
 

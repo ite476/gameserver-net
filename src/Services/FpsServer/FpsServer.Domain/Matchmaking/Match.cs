@@ -23,7 +23,7 @@ public class Match
     /// <summary>
     /// 매칭 성공 시간
     /// </summary>
-    public DateTime MatchedAt { get; private set; }
+    public DateTimeOffset MatchedAt { get; private set; }
     
     // EF Core용 private 생성자
     private Match() 
@@ -45,7 +45,7 @@ public class Match
         MatchId = Guid.NewGuid();
         GameMode = gameMode;
         Players = players;
-        MatchedAt = DateTime.UtcNow;
+        MatchedAt = DateTimeOffset.UtcNow;
     }
 }
 
