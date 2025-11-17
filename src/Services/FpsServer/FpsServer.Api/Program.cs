@@ -36,7 +36,7 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+// OpenAPI 설정 (.NET 9)
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
