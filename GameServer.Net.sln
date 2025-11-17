@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FpsServer.Infrastructure", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FpsServer.Infrastructure.Tests", "tests\Unit\FpsServer.Infrastructure.Tests\FpsServer.Infrastructure.Tests.csproj", "{6A008800-2576-4478-8FC4-5F9469EC0C36}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FpsServer.Api", "src\Services\FpsServer\FpsServer.Api\FpsServer.Api.csproj", "{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,18 @@ Global
 		{6A008800-2576-4478-8FC4-5F9469EC0C36}.Release|x64.Build.0 = Release|Any CPU
 		{6A008800-2576-4478-8FC4-5F9469EC0C36}.Release|x86.ActiveCfg = Release|Any CPU
 		{6A008800-2576-4478-8FC4-5F9469EC0C36}.Release|x86.Build.0 = Release|Any CPU
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}.Debug|x64.Build.0 = Debug|Any CPU
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}.Debug|x86.Build.0 = Debug|Any CPU
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}.Release|x64.ActiveCfg = Release|Any CPU
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}.Release|x64.Build.0 = Release|Any CPU
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}.Release|x86.ActiveCfg = Release|Any CPU
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -115,5 +129,6 @@ Global
 		{E9FDB7EB-DCCD-4040-A292-98879CE9A755} = {D364F51C-08AA-44A2-940B-A7C700942234}
 		{B9779735-110A-46BD-A461-FACEF06751BB} = {D364F51C-08AA-44A2-940B-A7C700942234}
 		{6A008800-2576-4478-8FC4-5F9469EC0C36} = {521060E1-5A41-4490-A7B0-75291847BDBB}
+		{3FFEB0BE-016E-4DAF-A773-EEB82D89AE91} = {D364F51C-08AA-44A2-940B-A7C700942234}
 	EndGlobalSection
 EndGlobal
