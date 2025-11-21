@@ -5,6 +5,29 @@
 형식은 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)를 기반으로 하며,
 이 프로젝트는 [Semantic Versioning](https://semver.org/spec/v2.0.0.html)을 준수합니다.
 
+## [0.4.0] - 2025-01-22
+
+### Added
+
+* 실시간 채팅 시스템 전체 구현 (#20, #21, #22)
+  * Domain 레이어: `ChatRoom` Aggregate Root, `ChatMessage` 엔티티, `ChatUser` 값 객체, `ChatDomainService` 구현
+  * Application 레이어: `SendMessageUseCase`, `GetChatHistoryUseCase`, Port 인터페이스 (`IChatRepository`, `IChatNotifier`)
+  * Infrastructure 레이어: `InMemoryChatRepository`, `SignalRChatNotifier` 구현
+  * API 레이어: `ChatHub` SignalR Hub 구현 (`JoinRoom`, `LeaveRoom`)
+  * SignalR 기반 실시간 메시지 전송/수신 및 브로드캐스트
+  * 메모리 기반 채팅방 및 메시지 관리 (MVP)
+  * 페이지네이션 지원
+  * 단위 테스트 작성 (25개 테스트, 모두 통과)
+
+### Changed
+
+* 이슈-PR 연결 패턴 구분 명확화 (#45)
+  * `related to: #<issue>`: 단순 연결 (이슈 자동 Close 안 함)
+  * `Resolves #<issue>`: 이슈 완료 및 자동 Close (Release PR에서 사용)
+  * `docs/CONVENTIONS.md` 업데이트
+  * `.github/PULL_REQUEST_TEMPLATE/RELEASE.md` 업데이트
+  * `docs/RELEASE.md` Merge commit 메시지 규칙 업데이트
+
 ## [0.3.0] - 2025-11-18
 
 ### Added
