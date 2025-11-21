@@ -5,6 +5,21 @@
 형식은 [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)를 기반으로 하며,
 이 프로젝트는 [Semantic Versioning](https://semver.org/spec/v2.0.0.html)을 준수합니다.
 
+## [0.5.0] - 2025-01-22
+
+### Added
+
+* 매치 세션 및 MMR 시스템 전체 구현 (#23, #24, #25, #26)
+  * Domain 레이어: `MatchSession` Aggregate Root, `MatchResult`, `PlayerResult` 엔티티 및 값 객체, `EloRatingCalculator` Domain 서비스, `PlayerMMR` 엔티티 구현
+  * Application 레이어: `StartMatchUseCase`, `EndMatchUseCase`, `UpdatePlayerMMRUseCase`, `BulkUpdatePlayerMMRUseCase` 구현, Port 인터페이스 (`IMatchSessionRepository`, `IPlayerMMRRepository`)
+  * Infrastructure 레이어: `EfMatchSessionRepository`, `EfPlayerMMRRepository` 구현, `FpsDbContext` EF Core DbContext 생성
+  * API 레이어: `POST /api/fps/matches/{matchId}/start`, `POST /api/fps/matches/{matchId}/end` 엔드포인트 구현
+  * Elo 레이팅 시스템 기반 MMR 계산 알고리즘
+  * 매치 세션 라이프사이클 관리 (Matched → InProgress → Finished)
+  * 매치 종료 시 자동 MMR 업데이트 트리거
+  * EF Core 엔티티 매핑 설정 (Fluent API)
+  * 단위 테스트 및 통합 테스트 작성 (모든 테스트 통과)
+
 ## [0.4.0] - 2025-01-22
 
 ### Added
