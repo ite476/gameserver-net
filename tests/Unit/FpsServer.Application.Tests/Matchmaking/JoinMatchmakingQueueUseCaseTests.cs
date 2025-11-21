@@ -4,6 +4,7 @@ using FpsServer.Application.Matchmaking.Ports;
 using FpsServer.Application.Matchmaking.UseCases;
 using FpsServer.Domain.Matchmaking;
 using DomainMatch = FpsServer.Domain.Matchmaking.Match;
+using DomainMMR = FpsServer.Domain.Matchmaking.MMR;
 using FpsServer.Domain.Matchmaking.Exceptions;
 using Moq;
 using Xunit;
@@ -87,7 +88,7 @@ public class JoinMatchmakingQueueUseCaseTests
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
         
         // 첫 번째 플레이어 큐 진입
-        var player1Request = new PlayerMatchRequest(player1Id, MatchmakingMode.Solo, new MMR(1500));
+        var player1Request = new PlayerMatchRequest(player1Id, MatchmakingMode.Solo, new DomainMMR(1500));
         queue.Enqueue(player1Request);
         
         // 두 번째 플레이어 큐 진입 (매칭 성공)
@@ -125,7 +126,7 @@ public class JoinMatchmakingQueueUseCaseTests
         };
         
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
-        var existingRequest = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new MMR(1500));
+        var existingRequest = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new DomainMMR(1500));
         queue.Enqueue(existingRequest);
         
         _repositoryMock

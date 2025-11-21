@@ -1,5 +1,6 @@
 using FluentAssertions;
 using FpsServer.Domain.Matchmaking;
+using DomainMMR = FpsServer.Domain.Matchmaking.MMR;
 using Xunit;
 
 namespace FpsServer.Domain.Tests.Matchmaking;
@@ -44,7 +45,7 @@ public class MatchmakingDomainServiceTests
         // Arrange
         var service = new MatchmakingDomainService();
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
-        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1500));
+        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1500));
         queue.Enqueue(player1);
         
         // Act
@@ -62,8 +63,8 @@ public class MatchmakingDomainServiceTests
         // Arrange
         var service = new MatchmakingDomainService();
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
-        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1500));
-        var player2 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1550)); // ±100 범위 내
+        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1500));
+        var player2 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1550)); // ±100 범위 내
         queue.Enqueue(player1);
         queue.Enqueue(player2);
         
@@ -86,8 +87,8 @@ public class MatchmakingDomainServiceTests
         // Arrange
         var service = new MatchmakingDomainService();
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
-        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1500));
-        var player2 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1700)); // ±100 범위 밖
+        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1500));
+        var player2 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1700)); // ±100 범위 밖
         queue.Enqueue(player1);
         queue.Enqueue(player2);
         
@@ -106,9 +107,9 @@ public class MatchmakingDomainServiceTests
         // Arrange
         var service = new MatchmakingDomainService();
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
-        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1500));
-        var player2 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1550)); // ±100 범위 내
-        var player3 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1700)); // ±100 범위 밖
+        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1500));
+        var player2 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1550)); // ±100 범위 내
+        var player3 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1700)); // ±100 범위 밖
         queue.Enqueue(player1);
         queue.Enqueue(player2);
         queue.Enqueue(player3);
@@ -133,8 +134,8 @@ public class MatchmakingDomainServiceTests
         // Arrange
         var service = new MatchmakingDomainService();
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
-        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1500));
-        var player2 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1600)); // 정확히 ±100
+        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1500));
+        var player2 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1600)); // 정확히 ±100
         queue.Enqueue(player1);
         queue.Enqueue(player2);
         
@@ -155,9 +156,9 @@ public class MatchmakingDomainServiceTests
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
         
         // player1이 먼저 진입, player2는 나중에 진입하지만 MMR이 더 가까움
-        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1500));
-        var player2 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1505)); // 더 가까움
-        var player3 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1550)); // player1과 매칭 가능
+        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1500));
+        var player2 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1505)); // 더 가까움
+        var player3 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1550)); // player1과 매칭 가능
         
         queue.Enqueue(player1);
         queue.Enqueue(player2);
@@ -182,10 +183,10 @@ public class MatchmakingDomainServiceTests
         var service = new MatchmakingDomainService();
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
         
-        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1500));
-        var player2 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1550));
-        var player3 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1500));
-        var player4 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new MMR(1550));
+        var player1 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1500));
+        var player2 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1550));
+        var player3 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1500));
+        var player4 = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Solo, new DomainMMR(1550));
         
         queue.Enqueue(player1);
         queue.Enqueue(player2);
