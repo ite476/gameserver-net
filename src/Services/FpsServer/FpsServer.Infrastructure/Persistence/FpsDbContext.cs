@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using DomainMatchSession = FpsServer.Domain.MatchSession.MatchSession;
 using DomainMatchResult = FpsServer.Domain.MatchSession.MatchResult;
 using DomainPlayerResult = FpsServer.Domain.MatchSession.PlayerResult;
+using DomainMMR = FpsServer.Domain.Matchmaking.MMR;
 using FpsServer.Domain.MMR;
 using FpsServer.Domain.Matchmaking;
 
@@ -133,13 +134,13 @@ public class FpsDbContext : DbContext
             entity.Property(e => e.PlayerId)
                 .HasColumnName("PlayerId");
             
-            // MMR을 Complex Type으로 매핑 (EF Core 8)
-            entity.ComplexProperty(e => e.CurrentMMR, mmr =>
-            {
-                mmr.Property(m => m.Value)
-                    .HasColumnName("MMR")
-                    .IsRequired();
-            });
+            // MMR을 Value Conversion으로 매핑
+            entity.Property(e => e.CurrentMMR)
+                .HasColumnName("MMR")
+                .HasConversion(
+                    v => v.Value,
+                    v => new DomainMMR(v))
+                .IsRequired();
             
             entity.Property(e => e.UpdatedAt)
                 .HasColumnName("UpdatedAt")
