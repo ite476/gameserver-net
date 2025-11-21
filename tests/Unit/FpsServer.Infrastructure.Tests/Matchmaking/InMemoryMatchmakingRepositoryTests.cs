@@ -1,6 +1,7 @@
 using FluentAssertions;
 using FpsServer.Domain.Matchmaking;
 using FpsServer.Infrastructure.Matchmaking;
+using DomainMMR = FpsServer.Domain.Matchmaking.MMR;
 using Xunit;
 
 namespace FpsServer.Infrastructure.Tests.Matchmaking;
@@ -61,7 +62,7 @@ public class InMemoryMatchmakingRepositoryTests
         // Arrange
         var queue = await _repository.GetOrCreateQueueAsync(MatchmakingMode.Solo);
         var playerId = Guid.NewGuid();
-        var request = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new MMR(1500));
+        var request = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new DomainMMR(1500));
         queue.Enqueue(request);
         
         // Act
