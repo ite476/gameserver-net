@@ -3,6 +3,8 @@ using FpsServer.Application.Matchmaking.UseCases;
 using FpsServer.Application.Chat.UseCases;
 using FpsServer.Infrastructure.Matchmaking;
 using FpsServer.Infrastructure.Chat;
+using FpsServer.Infrastructure.MatchSession;
+using FpsServer.Infrastructure.MMR;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.SignalR;
@@ -17,18 +19,24 @@ builder.Services.AddSignalR();
 
 // FluentValidation 등록
 builder.Services.AddValidatorsFromAssemblyContaining<JoinMatchmakingRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<StartMatchRequestValidator>();
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 
 // Infrastructure 레이어 서비스 등록
 builder.Services.AddMatchmakingInfrastructure();
 builder.Services.AddChatInfrastructure();
+builder.Services.AddMatchSessionInfrastructure();
+builder.Services.AddMMRInfrastructure();
 
 // UseCase 등록
 builder.Services.AddScoped<JoinMatchmakingQueueUseCase>();
 builder.Services.AddScoped<CancelMatchmakingUseCase>();
 builder.Services.AddScoped<SendMessageUseCase>();
 builder.Services.AddScoped<GetChatHistoryUseCase>();
+builder.Services.AddScoped<FpsServer.Application.MatchSession.UseCases.StartMatchUseCase>();
+builder.Services.AddScoped<FpsServer.Application.MatchSession.UseCases.EndMatchUseCase>();
+builder.Services.AddScoped<FpsServer.Application.MMR.UseCases.UpdatePlayerMMRUseCase>();
 
 // CORS 설정 (로컬 테스트용)
 builder.Services.AddCors(options =>

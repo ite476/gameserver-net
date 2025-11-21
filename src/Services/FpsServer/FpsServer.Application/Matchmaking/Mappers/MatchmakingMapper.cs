@@ -1,5 +1,6 @@
 using FpsServer.Application.Matchmaking.DTOs;
 using FpsServer.Domain.Matchmaking;
+using DomainMMR = FpsServer.Domain.Matchmaking.MMR;
 
 namespace FpsServer.Application.Matchmaking.Mappers;
 
@@ -16,7 +17,7 @@ public static class MatchmakingMapper
         return new PlayerMatchRequest(
             request.PlayerId,
             request.GameMode,
-            new MMR(request.MMR)
+            new DomainMMR(request.MMR)
         );
     }
     

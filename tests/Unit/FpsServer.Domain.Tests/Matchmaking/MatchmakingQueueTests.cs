@@ -1,6 +1,7 @@
 using FluentAssertions;
 using FpsServer.Domain.Matchmaking;
 using FpsServer.Domain.Matchmaking.Exceptions;
+using DomainMMR = FpsServer.Domain.Matchmaking.MMR;
 using Xunit;
 
 namespace FpsServer.Domain.Tests.Matchmaking;
@@ -28,7 +29,7 @@ public class MatchmakingQueueTests
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
         var playerId = Guid.NewGuid();
-        var request = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new MMR(1500));
+        var request = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new DomainMMR(1500));
         
         // Act
         queue.Enqueue(request);
@@ -60,8 +61,8 @@ public class MatchmakingQueueTests
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
         var playerId = Guid.NewGuid();
-        var request1 = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new MMR(1500));
-        var request2 = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new MMR(1600));
+        var request1 = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new DomainMMR(1500));
+        var request2 = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new DomainMMR(1600));
         
         queue.Enqueue(request1);
         
@@ -79,7 +80,7 @@ public class MatchmakingQueueTests
     {
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
-        var request = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Duo, new MMR(1500));
+        var request = new PlayerMatchRequest(Guid.NewGuid(), MatchmakingMode.Duo, new DomainMMR(1500));
         
         // Act
         var act = () => queue.Enqueue(request);
@@ -96,7 +97,7 @@ public class MatchmakingQueueTests
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
         var playerId = Guid.NewGuid();
-        var request = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new MMR(1500));
+        var request = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new DomainMMR(1500));
         queue.Enqueue(request);
         
         // Act
@@ -129,7 +130,7 @@ public class MatchmakingQueueTests
         // Arrange
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
         var playerId = Guid.NewGuid();
-        var request = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new MMR(1500));
+        var request = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new DomainMMR(1500));
         queue.Enqueue(request);
         
         // Act
@@ -165,9 +166,9 @@ public class MatchmakingQueueTests
         var player2 = Guid.NewGuid();
         var player3 = Guid.NewGuid();
         
-        var request1 = new PlayerMatchRequest(player1, MatchmakingMode.Solo, new MMR(1500));
-        var request2 = new PlayerMatchRequest(player2, MatchmakingMode.Solo, new MMR(1600));
-        var request3 = new PlayerMatchRequest(player3, MatchmakingMode.Solo, new MMR(1700));
+        var request1 = new PlayerMatchRequest(player1, MatchmakingMode.Solo, new DomainMMR(1500));
+        var request2 = new PlayerMatchRequest(player2, MatchmakingMode.Solo, new DomainMMR(1600));
+        var request3 = new PlayerMatchRequest(player3, MatchmakingMode.Solo, new DomainMMR(1700));
         
         // Act
         queue.Enqueue(request1);
