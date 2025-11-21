@@ -1,8 +1,6 @@
 using FpsServer.Api.Validators;
 using FpsServer.Application.Matchmaking.UseCases;
-using FpsServer.Application.Chat.UseCases;
 using FpsServer.Infrastructure.Matchmaking;
-using FpsServer.Infrastructure.Chat;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.SignalR;
@@ -22,13 +20,10 @@ builder.Services.AddFluentValidationClientsideAdapters();
 
 // Infrastructure 레이어 서비스 등록
 builder.Services.AddMatchmakingInfrastructure();
-builder.Services.AddChatInfrastructure();
 
 // UseCase 등록
 builder.Services.AddScoped<JoinMatchmakingQueueUseCase>();
 builder.Services.AddScoped<CancelMatchmakingUseCase>();
-builder.Services.AddScoped<SendMessageUseCase>();
-builder.Services.AddScoped<GetChatHistoryUseCase>();
 
 // CORS 설정 (로컬 테스트용)
 builder.Services.AddCors(options =>
@@ -63,6 +58,5 @@ app.MapControllers();
 
 // SignalR Hub 엔드포인트 등록
 app.MapHub<MatchmakingHub>("/matchmaking-hub");
-app.MapHub<ChatHub>("/chat-hub");
 
 app.Run();
