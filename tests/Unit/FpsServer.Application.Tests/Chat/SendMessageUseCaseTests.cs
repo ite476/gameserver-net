@@ -13,16 +13,19 @@ namespace FpsServer.Application.Tests.Chat;
 public class SendMessageUseCaseTests
 {
     private readonly Mock<IChatRepository> _repositoryMock;
+    private readonly Mock<IChatNotifier> _notifierMock;
     private readonly ChatDomainService _domainService;
     private readonly SendMessageUseCase _useCase;
     
     public SendMessageUseCaseTests()
     {
         _repositoryMock = new Mock<IChatRepository>();
+        _notifierMock = new Mock<IChatNotifier>();
         _domainService = new ChatDomainService();
         _useCase = new SendMessageUseCase(
             _repositoryMock.Object,
-            _domainService
+            _domainService,
+            _notifierMock.Object
         );
     }
     
@@ -46,6 +49,9 @@ public class SendMessageUseCaseTests
         _repositoryMock
             .Setup(r => r.SaveMessageAsync(It.IsAny<ChatRoom>(), It.IsAny<ChatMessage>(), It.IsAny<CancellationToken>()))
             .Returns(Task.CompletedTask);
+        _notifierMock
+            .Setup(n => n.NotifyMessageSentAsync(It.IsAny<string>(), It.IsAny<ChatMessage>(), It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
         
         // Act
         var result = await _useCase.ExecuteAsync(request);
@@ -60,6 +66,9 @@ public class SendMessageUseCaseTests
             Times.Once);
         _repositoryMock.Verify(
             r => r.SaveMessageAsync(It.IsAny<ChatRoom>(), It.IsAny<ChatMessage>(), It.IsAny<CancellationToken>()), 
+            Times.Once);
+        _notifierMock.Verify(
+            n => n.NotifyMessageSentAsync("room-1", It.IsAny<ChatMessage>(), It.IsAny<CancellationToken>()), 
             Times.Once);
     }
     
