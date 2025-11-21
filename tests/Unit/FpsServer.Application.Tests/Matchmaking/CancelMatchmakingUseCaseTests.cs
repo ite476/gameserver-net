@@ -3,6 +3,7 @@ using FpsServer.Application.Matchmaking.Ports;
 using FpsServer.Application.Matchmaking.UseCases;
 using FpsServer.Domain.Matchmaking;
 using FpsServer.Domain.Matchmaking.Exceptions;
+using DomainMMR = FpsServer.Domain.Matchmaking.MMR;
 using Moq;
 using Xunit;
 
@@ -27,7 +28,7 @@ public class CancelMatchmakingUseCaseTests
         // Arrange
         var playerId = Guid.NewGuid();
         var queue = new MatchmakingQueue(MatchmakingMode.Solo);
-        var request = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new MMR(1500));
+        var request = new PlayerMatchRequest(playerId, MatchmakingMode.Solo, new DomainMMR(1500));
         queue.Enqueue(request);
         
         _repositoryMock
