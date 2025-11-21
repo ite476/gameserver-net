@@ -71,6 +71,7 @@ public class EfPlayerMMRRepository : IPlayerMMRRepository
     {
         var playerIds = playerMMRs.Select(p => p.PlayerId).ToList();
         var existing = await _context.PlayerMMRs
+            .AsNoTracking()
             .Where(p => playerIds.Contains(p.PlayerId))
             .ToListAsync(cancellationToken);
         
@@ -80,7 +81,12 @@ public class EfPlayerMMRRepository : IPlayerMMRRepository
         {
             if (existingIds.Contains(playerMMR.PlayerId))
             {
-                _context.PlayerMMRs.Update(playerMMR);
+                var tracked = await _context.PlayerMMRs
+                    .FirstOrDefaultAsync(p => p.PlayerId == playerMMR.PlayerId, cancellationToken);
+                if (tracked != null)
+                {
+                    _context.Entry(tracked).CurrentValues.SetValues(playerMMR);
+                }
             }
             else
             {
