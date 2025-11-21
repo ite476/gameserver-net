@@ -62,12 +62,21 @@
     * Hotfix: `hotfix(x.y.z-YYYY-MM-DD-N): <한 줄 요약>`
     * Master 병합(필요시): `merge(master): <한 줄 요약>`
 * **이슈-PR 연결 및 자동 Close 규칙:**
+  * **연결 패턴 구분**:
+    * `related to: #<이슈번호>`: **연관/참조만 하는 경우** (이슈를 닫지 않음)
+      * 예: 작업 중 참고한 이슈, 관련된 다른 작업, 의존성 있는 이슈
+      * Feature PR 단계에서 주로 사용
+    * `Resolves #<이슈번호>`: **실제로 해당 이슈를 구현 및 완료한 경우에만 사용** (이슈 자동 Close)
+      * 예: 해당 PR에서 이슈의 Acceptance Criteria를 모두 충족한 경우
+      * Release PR 단계에서 주로 사용
   * **Feature PR 단계**: 이슈 연결은 하지만 **자동 Close 하지 않음**
     * GitHub PR의 Development 섹션에서 "연결"만 설정 (자동 Close 옵션 비활성화)
-    * 또는 PR 본문에 `#<이슈번호>` 언급 (단순 연결)
+    * PR 본문에 `related to: #<이슈번호>` 사용 (단순 연결/참조)
     * 이유: 작업이 완료되지 않았고, 여러 PR로 분할될 수 있음
   * **Release PR 단계**: 최종적으로 `release/x.y.z` → `master` PR에서 **자동 Close**
-    * Release PR 본문에 `Fixes #<이슈번호>`, `Closes #<이슈번호>`, `Resolves #<이슈번호>` 사용
+    * Release PR 본문에 **`Resolves #<이슈번호>` 패턴 사용** (실제로 완료한 이슈만)
+    * 마일스톤 단위로 관련 이슈를 한번에 닫을 때 사용: `Resolves #21`, `Resolves #22`
+    * 참고용 이슈는 `related to: #<이슈번호>` 사용
     * 또는 GitHub PR의 Development 섹션에서 "이 PR 완성되면 이 이슈를 닫습니다" 설정
     * 이유: 마일스톤 단위로 작업이 완료되어 릴리스에 포함됨
 * PR 템플릿: [default](../.github/PULL_REQUEST_TEMPLATE/DEFAULT.md) · [release](../.github/PULL_REQUEST_TEMPLATE/RELEASE.md) · [hotfix](../.github/PULL_REQUEST_TEMPLATE/HOTFIX.md)
@@ -212,7 +221,7 @@ chore: CI 빌드 캐시 조정
 * Q. CHANGELOG는 언제 업데이트하나요? → A. **릴리스 단계에서 통합 업데이트**합니다. Feature PR 단계에서는 체크리스트를 체크하지 않고, `release/x.y.z` → `master` PR 생성 전에 마일스톤 단위로 통합 정리합니다. 이유: 불완전한 기능 기록 방지, 중복/누락 방지, 릴리스 체크리스트와 일치.
 * Q. 작은 작업(문서 업데이트, 컨벤션 정리 등)도 이슈를 만들어야 하나요? → A. **아니요, 이슈 없이 PR로 바로 처리 가능**합니다. PR 자체가 작업 요청과 해결을 모두 포함하므로 충분합니다. 큰 기능이나 논의가 필요한 작업만 이슈를 만듭니다.
 * Q. 실수로 잘못된 브랜치에 머지한 PR이나 리버트 PR도 이슈를 만들어야 하나요? → A. **아니요, 새 이슈 생성 불필요**합니다. 이미 처리 완료된 작업이므로 PR 히스토리로 충분히 추적 가능합니다. 다만, 기존 이슈에서 파생된 작업이라면 GitHub PR의 Development 섹션에서 수동으로 연결하거나, PR 본문에 `#<이슈번호>`를 언급하여 연결하는 것을 권장합니다.
-* Q. 이슈는 언제 자동으로 닫히나요? → A. **Release PR 단계에서만 자동 Close**합니다. Feature PR 단계에서는 이슈를 연결만 하고 자동 Close는 하지 않습니다 (작업이 완료되지 않았고, 여러 PR로 분할될 수 있음). 최종적으로 `release/x.y.z` → `master` PR에서 `Fixes #`, `Closes #`, `Resolves #` 키워드 사용하거나 GitHub PR의 Development 섹션에서 "이 PR 완성되면 이 이슈를 닫습니다" 옵션을 활성화하여 자동 Close 처리합니다.
+* Q. 이슈는 언제 자동으로 닫히나요? → A. **Release PR 단계에서만 자동 Close**합니다. Feature PR 단계에서는 이슈를 연결만 하고 자동 Close는 하지 않습니다 (작업이 완료되지 않았고, 여러 PR로 분할될 수 있음). **연결 패턴 구분**: `related to: #<이슈번호>`는 연관/참조만 하는 경우 (이슈를 닫지 않음), `Resolves #<이슈번호>`는 실제로 해당 이슈를 구현 및 완료한 경우에만 사용 (이슈 자동 Close). 최종적으로 `release/x.y.z` → `master` PR에서 **`Resolves #<이슈번호>` 패턴을 사용**합니다 (`Fixes #`, `Closes #`도 가능하나 `Resolves #`가 의미적으로 더 적합). 또는 GitHub PR의 Development 섹션에서 "이 PR 완성되면 이 이슈를 닫습니다" 옵션을 활성화하여 자동 Close 처리합니다. 예: `Resolves #21`, `Resolves #22` (마일스톤 단위로 실제로 완료한 이슈를 한번에 닫을 때 사용).
 * Q. 솔루션 파일의 `ProjectConfigurationPlatforms` 섹션이 필요한가요? → A. **Visual Studio 사용 시 유지 권장**합니다. .NET SDK 스타일 프로젝트는 자동 매핑되지만, VS 테스트 탐색기 및 빌드 구성 관리 안정성을 위해 명시적 매핑이 더 안정적입니다. CLI 중심 작업만 하는 경우 제거해도 되지만, VS가 자동 재생성할 수 있습니다.
 
 ---
