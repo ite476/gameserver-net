@@ -13,18 +13,22 @@ public class SendMessageUseCase
 {
     private readonly IChatRepository _repository;
     private readonly ChatDomainService _domainService;
+    private readonly IChatNotifier _notifier;
     
     /// <summary>
     /// 생성자
     /// </summary>
     /// <param name="repository">채팅 저장소</param>
     /// <param name="domainService">채팅 도메인 서비스</param>
+    /// <param name="notifier">채팅 알림 서비스</param>
     public SendMessageUseCase(
         IChatRepository repository,
-        ChatDomainService domainService)
+        ChatDomainService domainService,
+        IChatNotifier notifier)
     {
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _domainService = domainService ?? throw new ArgumentNullException(nameof(domainService));
+        _notifier = notifier ?? throw new ArgumentNullException(nameof(notifier));
     }
     
     /// <summary>
@@ -60,7 +64,10 @@ public class SendMessageUseCase
         // 6. Repository에 저장
         await _repository.SaveMessageAsync(room, message, cancellationToken);
         
-        // 7. 응답 반환
+        // 7. 메시지 전송 알림 (SignalR 브로드캐스트)
+        await _notifier.NotifyMessageSentAsync(room.RoomId, message, cancellationToken);
+        
+        // 8. 응답 반환
         return ChatMapper.ToSendMessageResponse(message);
     }
 }
